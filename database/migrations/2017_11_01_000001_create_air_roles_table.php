@@ -7,15 +7,20 @@ class CreateAirRolesTable extends \Illuminate\Database\Migrations\Migration
 {
     public function up()
     {
-        Schema::create('air_roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-        });
+        Schema::create(
+            config('authable.roles_table', 'air_roles'),
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->timestamps();
+            }
+        );
     }
 
     public function down()
     {
-        Schema::dropIfExists('air_roles');
+        Schema::dropIfExists(
+            config('authable.roles_table', 'air_roles')
+        );
     }
 }

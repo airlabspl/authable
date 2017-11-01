@@ -9,7 +9,12 @@ class Role extends Model
 {
     use HasPermissions;
 
-    protected $table = 'air_roles';
-
     protected $fillable = [ 'name' ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->table = config('authable.roles_table', 'air_roles');
+    }
 }

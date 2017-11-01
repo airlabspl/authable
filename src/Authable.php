@@ -8,7 +8,7 @@ trait Authable
     {
         return $this->belongsTo(Role::class)->withDefault([
             'id' => 0,
-            'name' => 'Guest'
+            'name' => config('authable.guest_role_name')
         ]);
     }
 

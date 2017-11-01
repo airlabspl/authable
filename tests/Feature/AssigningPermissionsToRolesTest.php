@@ -55,4 +55,30 @@ class AssigningPermissionsToRolesTest extends TestCase
         $this->assertEquals(0, $role->permissions()->count());
         $this->assertFalse($role->hasPermission($permission));
     }
+
+    /** @test */
+    function permission_can_be_synced()
+    {
+        $role = factory(Role::class)->create();
+
+        $firstPermission = factory(Permission::class)->create();
+        $secondPermission = factory(Permission::class)->create();
+        $thirdPermission = factory(Permission::class)->create();
+
+        $this->assertFalse($role->hasPermission($firstPermission));
+        $this->assertFalse($role->hasPermission($secondPermission));
+        $this->assertFalse($role->hasPermission($thirdPermission));
+
+        $role->syncPermissions([ $firstPermission->id, $thirdPermission->id ]);
+
+        $this->assertTrue($role->hasPermission($firstPermission));
+        $this->assertFalse($role->hasPermission($secondPermission));
+        $this->assertTrue($role->hasPermission($thirdPermission));
+
+        $role->syncPermissions([ $secondPermission->id, $thirdPermission->id ]);
+
+        $this->assertFalse($role->hasPermission($firstPermission));
+        $this->assertTrue($role->hasPermission($secondPermission));
+        $this->assertTrue($role->hasPermission($thirdPermission));
+    }
 }

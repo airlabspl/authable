@@ -18,16 +18,8 @@ class AuthableServiceProvider extends ServiceProvider
     {
         $this->database();
         $this->routes();
-
-        if (auth()->check() && $user = auth()->user()) {
-            $permissions = $user->role->permissions;
-
-            foreach ($permissions as $permission) {
-                Gate::define($permission->key, function () {
-                    return true;
-                });
-            }
-        }
+        $this->config();
+        $this->permissions();
     }
 
     protected function database()
@@ -43,6 +35,28 @@ class AuthableServiceProvider extends ServiceProvider
             Route::get('air/auth/test', function () {
                 return 'Access';
             })->middleware('can:air-test');
+        }
+    }
+
+    protected function config()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/authable.php', 'authable');
+
+        $this->publishes([
+            __DIR__.'/../config/authable.php' => config_path('authable.php')
+        ], 'config');
+    }
+
+    protected function permissions()
+    {
+        if (auth()->check() && $user = auth()->user()) {
+            $permissions = $user->role->permissions;
+
+            foreach ($permissions as $permission) {
+                Gate::define($permission->key, function () {
+                    return true;
+                });
+            }
         }
     }
 }

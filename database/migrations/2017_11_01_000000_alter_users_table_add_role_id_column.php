@@ -7,15 +7,25 @@ class AlterUsersTableAddRoleIdColumn extends \Illuminate\Database\Migrations\Mig
 {
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('role_id')->default(0);
-        });
+        Schema::table(
+            config('authable.users_table', 'users'),
+            function (Blueprint $table) {
+                $table->unsignedInteger(
+                    config('authable.users_role_column', 'role_id')
+                )->default(0);
+            }
+        );
     }
 
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role_id');
-        });
+        Schema::table(
+            config('authable.users_table', 'users'),
+            function (Blueprint $table) {
+                $table->dropColumn(
+                    config('authable.users_role_column', 'role_id')
+                );
+            }
+        );
     }
 }

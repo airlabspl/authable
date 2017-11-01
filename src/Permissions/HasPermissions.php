@@ -10,8 +10,8 @@ trait HasPermissions
     {
         return $this->belongsToMany(
             Permission::class,
-            'air_permissions_roles',
-            'role_id',
+            config('authable.pivot_table', 'air_permissions_roles'),
+            config('authable.users_role_column', 'role_id'),
             'permission_id'
         );
     }
@@ -29,6 +29,11 @@ trait HasPermissions
     public function togglePermission($permission)
     {
         return $this->permissions()->toggle($permission);
+    }
+
+    public function syncPermissions(array $permissions = [])
+    {
+        return $this->permissions()->sync($permissions);
     }
 
     public function hasPermission(Permission $permission)
