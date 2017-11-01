@@ -10,6 +10,7 @@ class CreateAirPermissionsTable extends \Illuminate\Database\Migrations\Migratio
         Schema::create('air_permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('key')->unique();
             $table->timestamps();
         });
 

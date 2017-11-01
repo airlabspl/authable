@@ -18,4 +18,9 @@ trait Authable
 
         $this->save();
     }
+
+    public function hasPermission(Permission $permission)
+    {
+        return $this->role->hasPermission($permission);
+    }
 }

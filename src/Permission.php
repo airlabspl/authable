@@ -8,7 +8,7 @@ class Permission extends Model
 {
     protected $table = 'air_permissions';
 
-    protected $fillable = [ 'name' ];
+    protected $fillable = [ 'name', 'key' ];
 
     public function role()
     {

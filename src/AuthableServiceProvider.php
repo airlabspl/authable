@@ -3,6 +3,7 @@
 namespace Airlabs\Authable;
 
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AuthableServiceProvider extends ServiceProvider
@@ -14,8 +15,17 @@ class AuthableServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        if (! $this->app->environment([ 'testing' ])) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->database();
+
+        if (auth()->check() && $user = auth()->user()) {
+
+        }
+    }
+
+    protected function database()
+    {
+        if (!$this->app->environment(['testing'])) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 }
