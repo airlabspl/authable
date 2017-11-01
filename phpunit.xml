@@ -22,6 +22,7 @@
         </whitelist>
     </filter>
     <php>
-        <env name="APP_KEY" value="toDo"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
     </php>
 </phpunit>
