@@ -8,4 +8,6 @@ use Illuminate\Foundation\Auth\User;
 class Authenticable extends User
 {
     use Authable;
+
+    protected $table = 'users';
 }
