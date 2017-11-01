@@ -25,6 +25,16 @@ class Role extends Model
         return $this->permissions()->attach($permission);
     }
 
+    public function takePermission(Permission $permission)
+    {
+        return $this->permissions()->detach($permission);
+    }
+
+    public function togglePermission($permission)
+    {
+        return $this->permissions()->toggle($permission);
+    }
+
     public function hasPermission(Permission $permission)
     {
         return $this->permissions()->where('permission_id', $permission->id)->count() === 1;

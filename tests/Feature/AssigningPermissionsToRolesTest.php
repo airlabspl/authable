@@ -12,7 +12,7 @@ class AssigningPermissionsToRolesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function permission_can_be_assigned_to_role()
+    function permission_can_be_attached_to_role()
     {
         $role = factory(Role::class)->create();
         $permission = factory(Permission::class)->create();
@@ -23,5 +23,36 @@ class AssigningPermissionsToRolesTest extends TestCase
 
         $this->assertEquals(1, $role->permissions()->count());
         $this->assertTrue($role->hasPermission($permission));
+    }
+
+    /** @test */
+    function permission_can_be_detatched_from_role()
+    {
+        $role = factory(Role::class)->create();
+        $permission = factory(Permission::class)->create();
+
+        $role->givePermission($permission);
+
+        $role->takePermission($permission);
+
+        $this->assertEquals(0, $role->permissions()->count());
+        $this->assertFalse($role->hasPermission($permission));
+    }
+
+    /** @test */
+    function permission_can_be_toggled()
+    {
+        $role = factory(Role::class)->create();
+        $permission = factory(Permission::class)->create();
+
+        $role->togglePermission($permission);
+
+        $this->assertEquals(1, $role->permissions()->count());
+        $this->assertTrue($role->hasPermission($permission));
+
+        $role->togglePermission($permission);
+
+        $this->assertEquals(0, $role->permissions()->count());
+        $this->assertFalse($role->hasPermission($permission));
     }
 }
