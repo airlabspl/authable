@@ -49,14 +49,12 @@ class AuthableServiceProvider extends ServiceProvider
 
     protected function permissions()
     {
-        if (auth()->check() && $user = auth()->user()) {
-            $permissions = $user->role->permissions;
+        if ($this->app->environment('testing')) return;
 
-            foreach ($permissions as $permission) {
-                Gate::define($permission->key, function () {
-                    return true;
-                });
-            }
+        foreach (Permission::all() as $permission) {
+            Gate::define($permission->key, function ($user) use($permission) {
+                return $user->hasPermission($permission);
+            });
         }
     }
 }
