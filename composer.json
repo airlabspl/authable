@@ -1,0 +1,36 @@
+{
+    "name": "airlabs/authable",
+    "description": "Users roles and permissions.",
+    "type": "library",
+    "version": "1.0.0",
+    "require-dev": {
+        "phpunit/phpunit": "^6.4",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Airlabs\\Authable\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Krzysztof",
+            "email": "krzysztof@airlabs.pl"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "illuminate/support": "^5.5",
+        "illuminate/database": "^5.5",
+        "illuminate/console": "^5.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Airlabs\\Authable\\AuthableuServiceProvider"
+            ]
+        }
+    }
+}
