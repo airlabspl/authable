@@ -8,5 +8,5 @@ class Role extends Model
 {
     protected $table = 'air_roles';
 
-    protected $fillable = [ 'name', 'slug' ];
+    protected $fillable = [ 'name' ];
 }

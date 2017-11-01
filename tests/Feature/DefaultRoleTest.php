@@ -13,8 +13,8 @@ class DefaultRoleTest extends TestCase
     function default_guest_role_is_always_present()
     {
         $this->assertDatabaseHas('air_roles', [
-            'name' => 'Guest',
-            'slug' => 'guest'
+            'id' => 0,
+            'name' => 'Guest'
         ]);
     }
 }

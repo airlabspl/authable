@@ -6,6 +6,6 @@ trait Authable
 {
     public function role()
     {
-        return 'guest';
+        return $this->belongsTo(Role::class);
     }
 }
