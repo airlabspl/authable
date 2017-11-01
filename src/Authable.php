@@ -11,4 +11,11 @@ trait Authable
             'name' => 'Guest'
         ]);
     }
+
+    public function assignRole(Role $role)
+    {
+        $this->role()->associate($role);
+
+        $this->save();
+    }
 }
