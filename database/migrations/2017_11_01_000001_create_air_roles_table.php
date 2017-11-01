@@ -13,11 +13,6 @@ class CreateAirRolesTable extends \Illuminate\Database\Migrations\Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        Role::forceCreate([
-            'id' => 0,
-            'name' => 'Guest',
-        ]);
     }
 
     public function down()
